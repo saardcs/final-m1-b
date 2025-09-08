@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Two Trees with Given Roots and Children</title>
+  <style>
+    body {
+      font-family: sans-serif;
+    }
+    #trees-container {
+      position: relative;
+      width: 760px; /* enough for two trees side by side */
+      height: 320px;
+      margin: 40px auto;
+      display: flex;
+      justify-content: space-between;
+    }
+    .tree {
+      position: relative;
+      width: 360px;
+      height: 300px;
+    }
+    .node {
+      position: absolute;
+    }
+    .composite input {
+      width: 50px;
+      height: 50px;
+      border-radius: 8px;
+      background: #f0f0f0;
+      border: 2px solid #444;
+      font-size: 18px;
+      font-weight: bold;
+      text-align: center;
+      outline: none;
+    }
+    .prime input {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: #e2ffe2;
+      border: 2px solid #444;
+      font-size: 18px;
+      font-weight: bold;
+      text-align: center;
+      outline: none;
+    }
+    input[readonly] {
+      background: #ddd;
+      cursor: default;
+    }
+  </style>
+</head>
+<body>
+  <div id="trees-container">
+    <!-- Tree 1 -->
+    <div class="tree" id="tree1">
+      <svg width="100%" height="100%" style="position:absolute; top:0; left:0; z-index:0;" xmlns="http://www.w3.org/2000/svg">
+        <!-- Root 81 lines -->
+        <line x1="140" y1="55" x2="70" y2="100" stroke="#555" stroke-width="3" />
+        <line x1="140" y1="55" x2="210" y2="100" stroke="#555" stroke-width="3" />
+        <!-- Left 9 children lines -->
+        <line x1="70" y1="150" x2="30" y2="200" stroke="#555" stroke-width="3" />
+        <line x1="70" y1="150" x2="110" y2="200" stroke="#555" stroke-width="3" />
+        <!-- Right 9 children lines -->
+        <line x1="210" y1="150" x2="170" y2="200" stroke="#555" stroke-width="3" />
+        <line x1="210" y1="150" x2="250" y2="200" stroke="#555" stroke-width="3" />
+      </svg>
+
+      <!-- Nodes -->
+      <div class="node composite" style="top: 0px; left: 110px;">
+        <input value="81" readonly />
+      </div>
+
+      <div class="node composite" style="top: 97px; left: 40px;">
+        <input value="9" readonly />
+      </div>
+
+      <div class="node composite" style="top: 97px; left: 180px;">
+        <input id="t1-node2" />
+      </div>
+
+      <div class="node prime" style="top: 200px; left: 0px;">
+        <input id="t1-leaf1" />
+      </div>
+
+      <div class="node prime" style="top: 200px; left: 80px;">
+        <input id="t1-leaf2" />
+      </div>
+
+      <div class="node prime" style="top: 200px; left: 140px;">
+        <input id="t1-leaf3" />
+      </div>
+
+      <div class="node prime" style="top: 200px; left: 220px;">
+        <input id="t1-leaf4" />
+      </div>
+    </div>
+
+<!-- Tree 2 -->
+<div class="tree" id="tree2">
+  <svg width="100%" height="100%" style="position:absolute; top:0; left:0; z-index:0;" xmlns="http://www.w3.org/2000/svg">
+    <!-- Root 90 lines -->
+    <line x1="140" y1="55" x2="70" y2="100" stroke="#555" stroke-width="3" />
+    <line x1="140" y1="55" x2="210" y2="100" stroke="#555" stroke-width="3" />
+    <!-- Left 10 children lines -->
+    <line x1="70" y1="150" x2="30" y2="200" stroke="#555" stroke-width="3" />
+    <line x1="70" y1="150" x2="110" y2="200" stroke="#555" stroke-width="3" />
+    <!-- Right 10 children lines -->
+    <line x1="210" y1="150" x2="170" y2="200" stroke="#555" stroke-width="3" />
+    <line x1="210" y1="150" x2="250" y2="200" stroke="#555" stroke-width="3" />
+  </svg>
+
+  <!-- Nodes -->
+  <div class="node composite" style="top: 0px; left: 110px;">
+    <input value="90" readonly />
+  </div>
+
+  <div class="node composite" style="top: 97px; left: 40px;">
+    <input value="10" readonly />
+  </div>
+
+  <div class="node composite" style="top: 97px; left: 180px;">
+    <input id="t2-node2" />
+  </div>
+
+  <div class="node prime" style="top: 200px; left: 0px;">
+    <input id="t2-leaf1" />
+  </div>
+
+  <div class="node prime" style="top: 200px; left: 80px;">
+    <input id="t2-leaf2" />
+  </div>
+
+  <div class="node prime" style="top: 200px; left: 140px;">
+    <input id="t2-leaf3" />
+  </div>
+
+  <div class="node prime" style="top: 200px; left: 220px;">
+    <input id="t2-leaf4" />
+  </div>
+</div>
+
+  <script>
+    function getTreeValues() {
+      const vals = {
+        tree1: {
+          node2: document.getElementById("t1-node2").value.trim(),
+          leaf1: document.getElementById("t1-leaf1").value.trim(),
+          leaf2: document.getElementById("t1-leaf2").value.trim(),
+          leaf3: document.getElementById("t1-leaf3").value.trim(),
+          leaf4: document.getElementById("t1-leaf4").value.trim(),
+        },
+        tree2: {
+          node2: document.getElementById("t2-node2").value.trim(),
+          leaf1: document.getElementById("t2-leaf1").value.trim(),
+          leaf2: document.getElementById("t2-leaf2").value.trim(),
+          leaf3: document.getElementById("t2-leaf3").value.trim(),
+          leaf4: document.getElementById("t2-leaf4").value.trim(),
+        }
+      };
+      window.parent.postMessage({
+        isStreamlitMessage: true,
+        type: "streamlit:setComponentValue",
+        value: vals,
+      }, "*");
+    }
+
+    document.querySelectorAll("input").forEach((el) => el.addEventListener("input", getTreeValues));
+
+    function sendMessage(type, data = {}) {
+      window.parent.postMessage({ isStreamlitMessage: true, type, ...data }, "*");
+    }
+
+    window.addEventListener("message", (e) => {
+      if (e.data.type === "streamlit:render") {
+        sendMessage("streamlit:setFrameHeight", { height: document.documentElement.scrollHeight });
+      }
+    });
+
+    sendMessage("streamlit:componentReady", { apiVersion: 1 });
+    sendMessage("streamlit:setFrameHeight", { height: document.documentElement.scrollHeight });
+  </script>
+</body>
+</html>
